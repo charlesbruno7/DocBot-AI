@@ -168,26 +168,53 @@
     </div>
 
     <script>
-        // Processamento da triagem de sintomas
-        function processarTriagemIA(sintoma) {
-            let sintomaNormalizado = sintoma.toLowerCase();
-            let respostaBot = "";
-            if (
-    sintoma.includes("dor no peito") ||
-    sintoma.includes("falta de ar")
-){
+       function processarTriagemIA(sintoma) {
 
-    respostaBot =
-    "[EMERGÊNCIA VERMELHA] Dirija-se ao pronto-socorro. Custo: R$ 0,00";
+    let sintomaNormalizado = sintoma.toLowerCase();
+    let respostaBot = "";
 
+    // Ticket #101 - Emergência
+    if (
+        sintomaNormalizado.includes("dor no peito") ||
+        sintomaNormalizado.includes("falta de ar")
+    ) {
+
+        respostaBot = "[EMERGÊNCIA VERMELHA] Dirija-se ao pronto-socorro. Custo: R$ 0,00";
+
+    }
+
+    // Ticket #102 - Convênio
+    else if (
+        sintomaNormalizado.includes("plano") ||
+        sintomaNormalizado.includes("convenio") ||
+        sintomaNormalizado.includes("convênio") ||
+        sintomaNormalizado.includes("unimed")
+    ) {
+
+        respostaBot = "[CONVÊNIO ACEITO] Encaminhado para rede credenciada. Copagamento: R$ 35,00";
+
+    }
+
+    // Ticket #103 - Idoso
+    else if (
+        sintomaNormalizado.includes("idoso") ||
+        sintomaNormalizado.includes("60 anos") ||
+        sintomaNormalizado.includes("aposentado")
+    ) {
+
+        respostaBot = "[PRIORIDADE 60+] Atendimento preferencial. Valor: R$ 105,00";
+
+    }
+
+    // Regra padrão
+    else {
+
+        respostaBot = "[TRIAGEM PADRÃO] Encaminhado para consulta geral. Valor: R$ 150,00";
+
+    }
+
+    return respostaBot;
 }
-
-            // Regra inicial de triagem
-            respostaBot = "[TRIAGEM PADRÃO] Encaminhado para consulta geral. Valor: R$ 150,00";
-
-            return respostaBot;
-        }
-
         // Interface do chat
         function enviarMensagem() {
             const input = document.getElementById("userInput");
