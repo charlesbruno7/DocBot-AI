@@ -172,6 +172,15 @@
         function processarTriagemIA(sintoma) {
             let sintomaNormalizado = sintoma.toLowerCase();
             let respostaBot = "";
+            if (
+    sintoma.includes("dor no peito") ||
+    sintoma.includes("falta de ar")
+){
+
+    respostaBot =
+    "[EMERGÊNCIA VERMELHA] Dirija-se ao pronto-socorro. Custo: R$ 0,00";
+
+}
 
             // Regra inicial de triagem
             respostaBot = "[TRIAGEM PADRÃO] Encaminhado para consulta geral. Valor: R$ 150,00";
